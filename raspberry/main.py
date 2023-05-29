@@ -5,17 +5,19 @@ from flask import render_template, request, jsonify
 import requests
 from datetime import datetime
 
-last_request_coffeeplant  = datetime.now()
+app = Flask(__name__)
 
 with open("secrets.env", "r") as f:
     secrets = json.load(f)
 
 url_ts_bulk = "https://api.thingspeak.com/channels/" + str(secrets['TS_ID']) + "/bulk_update.json"
-
-app = Flask(__name__)
+global last_request_coffeeplant
+last_request_coffeeplant  = datetime.now()
+print(last_request_coffeeplant)
 
 @app.route("/coffeeplant", methods=['POST'])
 def coffeeplant():
+    global last_request_coffeeplant
     data = request.get_json()
 
     assert 't' in data.keys()

@@ -7,7 +7,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-with open("secrets.env", "r") as f:
+with open("/home/rsb/idb/raspberry/secrets.env", "r") as f:
     secrets = json.load(f)
 
 url_ts_bulk = "https://api.thingspeak.com/channels/" + str(secrets['TS_ID']) + "/bulk_update.json"

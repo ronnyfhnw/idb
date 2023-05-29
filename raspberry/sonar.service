@@ -1,0 +1,11 @@
+[Unit]
+Description=Sonar Service Standing Desk Height
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/home/rsb/idb/raspberry/venv/bin/python3 /home/rsb/idb/raspberry/sonar.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target

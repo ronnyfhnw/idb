@@ -1,1 +1,3 @@
 adafruit-nrfutil
+venv
+secrets.env

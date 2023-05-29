@@ -26,8 +26,6 @@ WIFI_PASSWORD = "QyWxEcRvTb1928!"
 tmp_values = []
 wifi_connection = False
 last_timestamp = time.monotonic()
-time.sleep(3)
-print(last_timestamp - time.monotonic())
 
 # http client
 adafruit_requests.set_socket(adafruit_esp32spi_socket, esp)
@@ -42,7 +40,8 @@ while esp.is_connected == False:
         print("Cannot connect to Wi-Fi", e)
 
 while True:
-    if last_timestamp - time.monotonic() > 30:
+    if (time.monotonic() - last_timestamp) > 30:
+        print("measuring")
         if esp.is_connected:
             temperature = int(round(dht.temperature))
             humidity = int(round(dht.humidity))
@@ -52,6 +51,13 @@ while True:
                         "h": humidity,
                         "l": light_value
                     }
-            response = adafruit_requests.post("http://raspberry.local:5500/coffeeplant", json=bulk_update).json()
+            response = adafruit_requests.post("http://192.168.1.41:5500/coffeeplant", json=bulk_update).json()
             print(response)
+            last_timestamp = time.monotonic()
+        else:
+            try:
+                esp.connect_AP(WIFI_SSID, WIFI_PASSWORD)
+                print("connected to wifi")
 
+            except ConnectionError as e:
+                print("Cannot connect to Wi-Fi", e)

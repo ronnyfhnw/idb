@@ -49,10 +49,8 @@ def coffeeplant():
     
     else:
         resp = jsonify({'message': 'Last request newer than 5 minutes ... '})
-        resp.status_code = 401
+        resp.status_code = 200
         return resp
-
-
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=5500, debug=True)

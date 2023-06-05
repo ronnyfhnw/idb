@@ -3,6 +3,8 @@ Description=Sonar Service Standing Desk Height
 After=multi-user.target
 
 [Service]
+Restart=on-failure
+RestartSec=5s
 Type=simple
 ExecStart=/home/rsb/idb/raspberry/venv/bin/python3 /home/rsb/idb/raspberry/sonar.py
 Restart=on-abort
